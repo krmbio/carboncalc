@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CarbonCalc - Calculadora de Pegada de Carbono</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f0f8ff; }
+    h1 { color: #2e8b57; }
+    label { display: block; margin-top: 15px; }
+    input { padding: 8px; margin-top: 5px; width: 100%; max-width: 300px; }
+    button { margin-top: 20px; padding: 10px 20px; background: #2e8b57; color: white; border: none; cursor: pointer; }
+    #resultado { margin-top: 30px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Calculadora de Pegada de Carbono</h1>
+
+  <label for="kmCarro">Quilômetros de carro por mês:</label>
+  <input type="number" id="kmCarro" placeholder="Ex: 300" />
+
+  <label for="kwh">Consumo de energia elétrica (kWh/mês):</label>
+  <input type="number" id="kwh" placeholder="Ex: 150" />
+
+  <label for="refeicoesCarne">Refeições com carne vermelha por semana:</label>
+  <input type="number" id="refeicoesCarne" placeholder="Ex: 7" />
+
+  <button onclick="calcularPegada()">Calcular</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    function calcularPegada() {
+      const km = parseFloat(document.getElementById('kmCarro').value) || 0;
+      const kwh = parseFloat(document.getElementById('kwh').value) || 0;
+      const carne = parseFloat(document.getElementById('refeicoesCarne').value) || 0;
+
+      const co2Transporte = km * 0.2;
+      const co2Energia = kwh * 0.1;
+      const co2Carne = carne * 6.5 * 4;
+
+      const total = co2Transporte + co2Energia + co2Carne;
+
+      document.getElementById('resultado').innerHTML = `
+        <p>🚗 Transporte: ${co2Transporte.toFixed(2)} kg CO₂/mês</p>
+        <p>💡 Energia: ${co2Energia.toFixed(2)} kg CO₂/mês</p>
+        <p>🍖 Alimentação: ${co2Carne.toFixed(2)} kg CO₂/mês</p>
+        <p><strong>🌎 Total: ${total.toFixed(2)} kg CO₂/mês</strong></p>
+      `;
+    }
+  </script>
+</body>
+</html>
